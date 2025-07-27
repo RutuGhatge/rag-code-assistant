@@ -1,3 +1,5 @@
+stackoverflow/
+stackoverflow_cache/
 venv/
 __pycache__/
 *.pyc
