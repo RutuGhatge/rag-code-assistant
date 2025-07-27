@@ -1,0 +1,12 @@
+langchain
+faiss-cpu
+sentence-transformers
+transformers
+pypdf
+beautifulsoup4
+requests
+langchain-community
+selenium 
+webdriver-manager 
+langchain-huggingface
+
