@@ -1,2 +1,0 @@
-Title: python decorators in interpreter
-URL: https://stackoverflow.com/questions/22361523/python-decorators-in-interpreter

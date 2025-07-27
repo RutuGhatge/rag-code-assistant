@@ -1,2 +1,0 @@
-Title: Python decorators with class methods
-URL: https://stackoverflow.com/questions/78667118/python-decorators-with-class-methods

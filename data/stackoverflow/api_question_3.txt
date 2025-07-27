@@ -1,2 +1,0 @@
-Title: Doxygen support for python decorators
-URL: https://stackoverflow.com/questions/79486238/doxygen-support-for-python-decorators

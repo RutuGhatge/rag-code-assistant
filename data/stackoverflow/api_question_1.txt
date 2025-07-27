@@ -1,2 +1,0 @@
-Title: self in python decorators
-URL: https://stackoverflow.com/questions/8375862/self-in-python-decorators

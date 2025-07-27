@@ -1,2 +1,0 @@
-Title: How can I customize the color and font style of Python decorators in VS Code?
-URL: https://stackoverflow.com/questions/77702694/how-can-i-customize-the-color-and-font-style-of-python-decorators-in-vs-code

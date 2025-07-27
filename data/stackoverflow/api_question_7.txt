@@ -1,2 +1,0 @@
-Title: Strange syntax specification for python decorators
-URL: https://stackoverflow.com/questions/37263949/strange-syntax-specification-for-python-decorators

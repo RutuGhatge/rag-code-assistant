@@ -1,2 +1,0 @@
-Title: Why treesitter syntax highlighting not working correctly with FastAPI Python decorators in Neovim?
-URL: https://stackoverflow.com/questions/79273656/why-treesitter-syntax-highlighting-not-working-correctly-with-fastapi-python-dec

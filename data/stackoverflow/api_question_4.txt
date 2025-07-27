@@ -1,2 +1,0 @@
-Title: Using Python decorators to retry request
-URL: https://stackoverflow.com/questions/50246304/using-python-decorators-to-retry-request
