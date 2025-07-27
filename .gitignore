@@ -4,3 +4,7 @@ __pycache__/
 *.pkl
 *.db
 .env
+faiss_store/
+vector_store/
+*.faiss
+*.index

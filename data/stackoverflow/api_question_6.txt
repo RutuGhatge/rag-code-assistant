@@ -1,0 +1,2 @@
+Title: Python decorators in classes
+URL: https://stackoverflow.com/questions/1263451/python-decorators-in-classes
