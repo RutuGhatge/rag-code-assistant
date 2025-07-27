@@ -18,7 +18,7 @@ This project is a **Retrieval-Augmented Generation (RAG) system** that combines:
 ---
 
 ## **Project Structure**
-
+```
 RAG_CODE_ASSISTANT/
 │
 ├── data/
@@ -41,7 +41,7 @@ RAG_CODE_ASSISTANT/
 ├── requirements.txt        # Dependencies
 └── README.md
 
-
+```
 ---
 
 ## **Installation**
