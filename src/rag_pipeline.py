@@ -1,30 +1,28 @@
-from transformers import pipeline # type: ignore
+from transformers import pipeline
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from langchain_huggingface import HuggingFacePipeline
+from src.config import LLM_MODEL
 
 def create_qa_chain(vector_store):
+    """
+    Creates the RAG chain using the 'map_reduce' method.
+    """
     print("✅ Loading LLM...")
 
-    # ✅ Load HuggingFace model
     llm_pipeline = pipeline(
         "text2text-generation",
-        model="google/flan-t5-large",  # Better model than base
-        max_new_tokens=512,  # Output token limit
-        device=-1  # -1 for CPU, 0 for GPU
+        model=LLM_MODEL,
+        max_new_tokens=512,
+        device=0  # Use -1 for CPU, 0 for GPU
     )
-
     llm = HuggingFacePipeline(pipeline=llm_pipeline)
 
-    # ✅ Custom prompt to avoid repetition and improve clarity
-    custom_prompt = PromptTemplate(
+    # Prompt for processing each individual document chunk
+    question_prompt = PromptTemplate(
         input_variables=["context", "question"],
-        template="""
-You are an expert assistant. Use the given context to answer the question clearly and concisely.
-- Explain in simple terms.
-- Include examples if possible.
-- Avoid repetition.
-- If the context is incomplete, answer based on general knowledge.
+        template="""You are an expert assistant. Use the given context to answer the question clearly.
+- If the context is incomplete or irrelevant, answer based on your own general knowledge.
 
 Context:
 {context}
@@ -35,18 +33,37 @@ Answer:
 """
     )
 
-    # ✅ Use FAISS retriever with top 3 results for better relevance
-    retriever = vector_store.as_retriever(search_kwargs={"k": 3})
+    # Prompt for combining the answers from all chunks
+    combine_prompt = PromptTemplate(
+        input_variables=["summaries", "question"],
+        template="""You are an expert summarizer. Combine the following partial answers into a single, clear, and complete final response.
 
-    # ✅ Use map_reduce for summarizing multiple chunks
-    return RetrievalQA.from_chain_type(
-        llm,
-        retriever=retriever,
-        chain_type="map_reduce",
-        chain_type_kwargs={"prompt": custom_prompt}
+Partial Answers:
+{summaries}
+
+Question: {question}
+
+Final Answer:
+"""
     )
 
-def ask_question(qa_chain, query):
-    print(f"\n🔍 Query: {query}")
+    retriever = vector_store.as_retriever(search_kwargs={"k": 3})
+
+    # Build the 'map_reduce' chain
+    return RetrievalQA.from_chain_type(
+        llm=llm,
+        retriever=retriever,
+        chain_type="map_reduce",
+        chain_type_kwargs={
+            "question_prompt": question_prompt,
+            "combine_prompt": combine_prompt
+        }
+    )
+
+def ask_question(qa_chain, query: str) -> str:
+    """
+    Queries the QA chain and returns the answer.
+    """
+    print(f"\n🔍 Querying the knowledge base for: '{query}'")
     result = qa_chain.invoke({"query": query})
-    return result.get("result", "No answer found.")
+    return result.get("result", "No answer could be generated.")
