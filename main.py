@@ -10,7 +10,6 @@ from src.config import PDF_DIR, STACKOVERFLOW_DIR, MAX_RESULTS
 def get_answers_for_query(topic: str, query: str):
     """
     Returns a list with two dictionaries: one for the PDF answer, one for Stack Overflow results.
-
     Args:
         topic (str): Topic to focus Stack Overflow search.
         query (str): The user's question.
